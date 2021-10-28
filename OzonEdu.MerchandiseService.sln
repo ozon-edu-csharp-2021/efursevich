@@ -10,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E020802C-08F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService", "src\OzonEdu.MerchandiseService\OzonEdu.MerchandiseService.csproj", "{BC628A7A-F240-480D-9C0D-EBBC9E3381E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.Grpc", "src\OzonEdu.MerchandiseService.Grpc\OzonEdu.MerchandiseService.Grpc.csproj", "{17E7D3D8-05F6-427F-A015-CAEF241C628F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.HttpClient", "src\OzonEdu.MerchandiseService.HttpClient\OzonEdu.MerchandiseService.HttpClient.csproj", "{FF39051E-10CB-46FD-9961-8CA63053379F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.GrpcClient", "src\OzonEdu.MerchandiseService.GrpcClient\OzonEdu.MerchandiseService.GrpcClient.csproj", "{ECDBB117-0612-453D-A55F-C7942C39B087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +23,26 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BC628A7A-F240-480D-9C0D-EBBC9E3381E5} = {E020802C-08F7-43E9-901F-3F2409F9CDF9}
+		{17E7D3D8-05F6-427F-A015-CAEF241C628F} = {E020802C-08F7-43E9-901F-3F2409F9CDF9}
+		{FF39051E-10CB-46FD-9961-8CA63053379F} = {E020802C-08F7-43E9-901F-3F2409F9CDF9}
+		{ECDBB117-0612-453D-A55F-C7942C39B087} = {E020802C-08F7-43E9-901F-3F2409F9CDF9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BC628A7A-F240-480D-9C0D-EBBC9E3381E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC628A7A-F240-480D-9C0D-EBBC9E3381E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC628A7A-F240-480D-9C0D-EBBC9E3381E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC628A7A-F240-480D-9C0D-EBBC9E3381E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17E7D3D8-05F6-427F-A015-CAEF241C628F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E7D3D8-05F6-427F-A015-CAEF241C628F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E7D3D8-05F6-427F-A015-CAEF241C628F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17E7D3D8-05F6-427F-A015-CAEF241C628F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF39051E-10CB-46FD-9961-8CA63053379F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF39051E-10CB-46FD-9961-8CA63053379F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF39051E-10CB-46FD-9961-8CA63053379F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF39051E-10CB-46FD-9961-8CA63053379F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECDBB117-0612-453D-A55F-C7942C39B087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECDBB117-0612-453D-A55F-C7942C39B087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECDBB117-0612-453D-A55F-C7942C39B087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECDBB117-0612-453D-A55F-C7942C39B087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

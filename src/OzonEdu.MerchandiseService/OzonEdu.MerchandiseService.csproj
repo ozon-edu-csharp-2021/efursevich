@@ -3,6 +3,18 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <PackageVersion>1.0.0</PackageVersion>
+        <AssemblyVersion>1.15.10.5</AssemblyVersion>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+      <PackageReference Include="Grpc.Core" Version="2.41.1" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OzonEdu.MerchandiseService.Grpc\OzonEdu.MerchandiseService.Grpc.csproj" />
+    </ItemGroup>
 
 </Project>
