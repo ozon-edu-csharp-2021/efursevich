@@ -24,8 +24,8 @@ namespace OzonEdu.MerchandiseService
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<MerchandiseGrpcService>();
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<MerchandiseGrpcService>();
             });
         }
     }

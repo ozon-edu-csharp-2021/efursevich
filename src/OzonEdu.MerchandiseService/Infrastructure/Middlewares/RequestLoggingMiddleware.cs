@@ -21,7 +21,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (string.Equals(context.Request.Protocol, "HTTP/1.1"))
+            if (!string.Equals(context.Request.Headers["Content-Type"], "application/grpc"))
             {
                 TryWriteLog(context);
             }
