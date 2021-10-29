@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
@@ -20,34 +21,36 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            await LogRequest(context);
+            try
+            {
+                var request = await RequestLog(context.Request);
+                _logger.LogInformation(request);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not log Request");
+            }
             await _next(context);
         }
 
-        private async Task LogRequest(HttpContext context)
+        private async Task<string> RequestLog(HttpRequest request)
         {
-            try
-            {
-                var headers = new List<string>();
-                foreach (var value in context.Request.Headers)
-                {
-                    headers.Add($"{value.Key} : {value.Value}");
-                }
+            var headers = request.Headers.Select(item => $"{item.Key} : {item.Value}");
+            var headersAsText = string.Join(Environment.NewLine, headers);
 
-                var log = new List<string>
-                {
-                    "Request log:",
-                    $"Path: {context.Request.Path.Value}",
-                    $"Headers:",
-                    $" {string.Join("\n ", headers)}",
-                };
-            
-                _logger.LogInformation(string.Join("\n", log));
-            }
-            catch (Exception e)
+            string bodyAsText = string.Empty;
+            if (request.ContentLength > 0)
             {
-                _logger.LogError(e, "Could not log request headers");
+                request.EnableBuffering();
+                var buffer = new byte[Convert.ToInt32(request.ContentLength)];
+                await request.Body.ReadAsync(buffer, 0, buffer.Length);
+                var body = Encoding.UTF8.GetString(buffer);
+                request.Body.Position = 0;
+                bodyAsText = $"---Body---{Environment.NewLine}{body}";
             }
+
+            var answer = new List<string> { "Request log:", "---Headers---", headersAsText, bodyAsText };
+            return string.Join(Environment.NewLine, answer);
         }
     }
 }
