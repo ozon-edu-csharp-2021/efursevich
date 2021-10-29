@@ -21,6 +21,15 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            if (string.Equals(context.Request.Protocol, "HTTP/1.1"))
+            {
+                TryWriteLog(context);
+            }
+            await _next(context);
+        }
+
+        private async void TryWriteLog(HttpContext context)
+        {
             try
             {
                 var request = await RequestLog(context.Request);
@@ -30,7 +39,6 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
             {
                 _logger.LogError(ex, "Could not log Request");
             }
-            await _next(context);
         }
 
         private async Task<string> RequestLog(HttpRequest request)

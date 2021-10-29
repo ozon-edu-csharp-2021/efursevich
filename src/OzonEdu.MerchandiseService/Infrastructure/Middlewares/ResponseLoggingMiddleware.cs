@@ -21,6 +21,18 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            if (string.Equals(context.Request.Protocol, "HTTP/1.1"))
+            {
+                TryWriteLog(context);
+            }
+            else
+            {
+                await _next(context);
+            }
+        }
+
+        private async void TryWriteLog(HttpContext context)
+        {
             try
             {
                 var originalBodyStream = context.Response.Body;
