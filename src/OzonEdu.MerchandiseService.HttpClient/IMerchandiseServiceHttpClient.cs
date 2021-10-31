@@ -6,8 +6,9 @@ namespace OzonEdu.MerchandiseService.HttpClient
 {
     public interface IMerchandiseServiceHttpClient
     {
-        public Task<MerchandiseRequestStatus> GetInformationAboutMerchandiseRequest(CancellationToken token);
+        public Task<MerchandiseRequestStatus> GetInformationAboutMerchandiseRequest(long id, CancellationToken token);
 
-        public Task<MerchandiseRequest> RequestMerchandise(CancellationToken token);
+        public Task<MerchandiseRequest> RequestMerchandise(MerchandiseRequestCreationModel creationModel,
+            CancellationToken token);
     }
 }
