@@ -19,7 +19,8 @@ namespace OzonEdu.MerchandiseService.Controllers.V1
         }
         
         [HttpGet("{id:long}")] 
-        public async Task<ActionResult<MerchandiseRequestStatus>> GetInformationAboutMerchandiseRequest(long id, CancellationToken token)
+        public async Task<ActionResult<MerchandiseRequestStatus>> GetInformationAboutMerchandiseRequest(long id, 
+            CancellationToken token)
         {
             var merchandiseRequest = await _merchandiseRequestService.GetById(id, token);
             if (merchandiseRequest is null)
@@ -27,12 +28,20 @@ namespace OzonEdu.MerchandiseService.Controllers.V1
                 return NotFound();
             }
 
-            var merchandiseRequestStatus = new MerchandiseRequestStatus(merchandiseRequest.Status);
+            var merchandiseRequestStatus = new MerchandiseRequestStatus(
+                merchandiseRequest.FirstName, 
+                merchandiseRequest.LastName, 
+                merchandiseRequest.MerchPackageType, 
+                merchandiseRequest.ClothingSize,
+                merchandiseRequest.RequestStatus, 
+                merchandiseRequest.CreatedAt, 
+                merchandiseRequest.CompletedAt);
             return merchandiseRequestStatus;
         }
 
         [HttpPost]
-        public async Task<ActionResult<MerchandiseRequest>> RequestMerchandise(MerchandiseRequestCreationModel creationModel, CancellationToken token)
+        public async Task<ActionResult<MerchandiseRequest>> RequestMerchandise(
+            MerchandiseRequestCreationModel creationModel, CancellationToken token)
         {
             var createdStockItem = await _merchandiseRequestService.Add(creationModel, token);
             return Ok(createdStockItem);

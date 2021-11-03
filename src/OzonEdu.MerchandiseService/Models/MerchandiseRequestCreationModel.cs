@@ -2,10 +2,16 @@
 {
     public class MerchandiseRequestCreationModel
     {
-        public MerchandiseRequestCreationModel(int size)
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string MerchPackageType  { get; }
+        public int ClothingSize { get; }
+        public MerchandiseRequestCreationModel(string firstName, string lastName, string merchPackageType, int clothingSize)
         {
-            Size = size;
+            FirstName = firstName;
+            LastName = lastName;
+            MerchPackageType = merchPackageType;
+            ClothingSize = clothingSize;
         }
-        public int Size { get; }
     }
 }

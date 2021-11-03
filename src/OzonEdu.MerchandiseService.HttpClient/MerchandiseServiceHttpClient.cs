@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using OzonEdu.MerchandiseService.Controllers.V1;
 using OzonEdu.MerchandiseService.HttpModels;
 
 namespace OzonEdu.MerchandiseService.HttpClient

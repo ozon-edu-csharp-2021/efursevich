@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.Json;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using OzonEdu.MerchandiseService.Grpc;
@@ -9,10 +9,18 @@ var client = new MerchandiseServiceGrpc.MerchandiseServiceGrpcClient(channel);
 
 try
 {
-    var response1 = client.GetInformationAboutMerchandiseRequest(new MerchandiseRequestId { Id = 1});
-    Console.WriteLine(new {status = response1.Status});
-    var response2 = client.RequestMerchandise(new MerchandiseRequestCreationModel { Size = 46 });
-    Console.WriteLine(new {id = response2.Id, status = response2.Status, size = response2.Size});
+    var int64Value = new Int64Value { Value = 3 };
+    var response1 = client.GetInformationAboutMerchandiseRequest(int64Value);
+    Console.WriteLine(response1);
+    var creationModel = new MerchandiseRequestCreationModelGrpc
+    {
+        FirstName = "Валерий",
+        LastName = "Кролов",
+        ClothingSize = 46,
+        MerchPackageType = "Full"
+    };
+    var response2 = client.RequestMerchandise(creationModel);
+    Console.WriteLine(response2);
 }
 catch (RpcException e)
 {
