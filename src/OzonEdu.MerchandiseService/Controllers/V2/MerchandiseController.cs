@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OzonEdu.MerchandiseService.Models;
 
 namespace OzonEdu.MerchandiseService.Controllers.V2
 {
@@ -12,7 +9,7 @@ namespace OzonEdu.MerchandiseService.Controllers.V2
     public class MerchandiseController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<MerchandiseRequest>> GetException(CancellationToken token)
+        public void GetException()
         {
             throw new NotImplementedException();
         }

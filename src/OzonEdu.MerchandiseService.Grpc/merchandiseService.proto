@@ -6,34 +6,22 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 service MerchandiseServiceGrpc {
-  rpc GetInformationAboutMerchandiseRequest (google.protobuf.Int64Value) returns (MerchandiseRequestStatusGrpc);
-  rpc RequestMerchandise (MerchandiseRequestCreationModelGrpc) returns (MerchandiseRequestGrpc);
+  rpc GetInfoAboutMerchRequest (google.protobuf.Int64Value) returns (MerchRequestGrpc);
+  rpc RequestMerchandise (MerchRequestCreationModelGrpc) returns (MerchRequestGrpc);
 }
 
-message MerchandiseRequestStatusGrpc {
-  string firstName = 1;
-  string lastName = 2;
-  string merchPackageType = 3;
-  int32 clothingSize = 4;
+message MerchRequestCreationModelGrpc {
+  string clothingSize = 1;
+  string merchType = 2;
+  int64 employeeId = 3;
+}
+
+message MerchRequestGrpc {
+  int64 id = 1;
+  string clothingSize = 2;
+  string merchType = 3;
+  int64 employeeId = 4;
   string requestStatus = 5;
   google.protobuf.Timestamp createdAt = 6;
   google.protobuf.Timestamp completedAt = 7;
-}
-
-message MerchandiseRequestCreationModelGrpc {
-  string firstName = 1;
-  string lastName = 2;
-  string merchPackageType = 3;
-  int32 clothingSize = 4;
-}
-
-message MerchandiseRequestGrpc {
-  int64 id = 1;
-  string firstName = 2;
-  string lastName = 3;
-  string merchPackageType = 4;
-  int32 clothingSize = 5;
-  string requestStatus = 6;
-  google.protobuf.Timestamp createdAt = 7;
-  google.protobuf.Timestamp completedAt = 8;
 }

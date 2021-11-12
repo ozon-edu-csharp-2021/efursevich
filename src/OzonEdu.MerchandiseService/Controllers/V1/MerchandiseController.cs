@@ -1,7 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OzonEdu.MerchandiseService.Models;
+using OzonEdu.MerchandiseService.HttpModels;
+using OzonEdu.MerchandiseService.Mappings;
 using OzonEdu.MerchandiseService.Services.Interfaces;
 
 namespace OzonEdu.MerchandiseService.Controllers.V1
@@ -11,40 +12,40 @@ namespace OzonEdu.MerchandiseService.Controllers.V1
     [Produces("application/json")]
     public class MerchandiseController : ControllerBase
     {
-        private readonly IMerchandiseRequestService _merchandiseRequestService;
+        private readonly IMerchRequestService _merchRequestService;
 
-        public MerchandiseController(IMerchandiseRequestService merchandiseRequestService)
+        public MerchandiseController(IMerchRequestService merchRequestService)
         {
-            _merchandiseRequestService = merchandiseRequestService;
+            _merchRequestService = merchRequestService;
         }
         
         [HttpGet("{id:long}")] 
-        public async Task<ActionResult<MerchandiseRequestStatus>> GetInformationAboutMerchandiseRequest(long id, 
+        public async Task<ActionResult<MerchRequestDTO>> GetInformationAboutMerchandiseRequest(long id, 
             CancellationToken token)
         {
-            var merchandiseRequest = await _merchandiseRequestService.GetById(id, token);
-            if (merchandiseRequest is null)
+            var merchRequest = await _merchRequestService.GetById(id, token);
+            if (merchRequest is null)
             {
                 return NotFound();
             }
 
-            var merchandiseRequestStatus = new MerchandiseRequestStatus(
-                merchandiseRequest.FirstName, 
-                merchandiseRequest.LastName, 
-                merchandiseRequest.MerchPackageType, 
-                merchandiseRequest.ClothingSize,
-                merchandiseRequest.RequestStatus, 
-                merchandiseRequest.CreatedAt, 
-                merchandiseRequest.CompletedAt);
-            return merchandiseRequestStatus;
+            var merchRequestDTO = Mapper.MerchRequestToDTO(merchRequest);
+            return Ok(merchRequestDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<MerchandiseRequest>> RequestMerchandise(
-            MerchandiseRequestCreationModel creationModel, CancellationToken token)
+        public async Task<ActionResult<MerchRequestDTO>> RequestMerchandise(MerchRequestCreationModelDTO creationModelDTO, 
+            CancellationToken token)
         {
-            var createdStockItem = await _merchandiseRequestService.Add(creationModel, token);
-            return Ok(createdStockItem);
+            var creationModel = Mapper.Map(creationModelDTO);
+            if (creationModel.ClothingSize is null || creationModel.MerchType is null)
+            {
+                return BadRequest();
+            }
+            
+            var createdMerchRequest = await _merchRequestService.Add(creationModel, token);
+            var merchRequestDTO = Mapper.MerchRequestToDTO(createdMerchRequest);
+            return Ok(merchRequestDTO);
         }
     }
 }

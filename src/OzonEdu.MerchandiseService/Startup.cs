@@ -12,7 +12,7 @@ namespace OzonEdu.MerchandiseService
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMerchandiseRequestService, MerchandiseRequestService>();
+            services.AddSingleton<IMerchRequestService, MerchRequestService>();
             services.AddGrpc(options =>
             {
                 options.Interceptors.Add<LoggingInterceptor>();

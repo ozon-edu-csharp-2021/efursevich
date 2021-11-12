@@ -21,8 +21,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (string.Equals(context.Request.Headers["Accept"], "application/json")
-                || string.Equals(context.Request.Headers["Content-Type"], "application/json"))
+            if (!context.Request.Headers["Content-Type"].ToString().StartsWith("application/grpc"))
             {
                 TryWriteLog(context);
             }

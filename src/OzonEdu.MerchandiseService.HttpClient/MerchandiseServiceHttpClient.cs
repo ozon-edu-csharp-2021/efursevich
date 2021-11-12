@@ -15,20 +15,20 @@ namespace OzonEdu.MerchandiseService.HttpClient
         {
             _httpClient = httpClient;
         }
-        public async Task<MerchandiseRequestStatus> GetInformationAboutMerchandiseRequest(long id, CancellationToken token)
+        public async Task<MerchRequestDTO> GetInfoAboutMerchRequest(long id, CancellationToken token)
         {
             var response = await _httpClient.GetAsync($"/v1/api/merchandise/{id}", token);
             var body = await response.Content.ReadAsStringAsync(token);
-            return JsonSerializer.Deserialize<MerchandiseRequestStatus>(body);
+            return JsonSerializer.Deserialize<MerchRequestDTO>(body);
         }
         
-        public async Task<MerchandiseRequest> RequestMerchandise(MerchandiseRequestCreationModel creationModel, CancellationToken token)
+        public async Task<MerchRequestDTO> RequestMerchandise(MerchRequestCreationModelDTO creationModel, CancellationToken token)
         {
             string jsonContent = JsonSerializer.Serialize(creationModel);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/v1/api/merchandise", content, token);
             var body = await response.Content.ReadAsStringAsync(token);
-            return JsonSerializer.Deserialize<MerchandiseRequest>(body);
+            return JsonSerializer.Deserialize<MerchRequestDTO>(body);
         }
     }
 }
