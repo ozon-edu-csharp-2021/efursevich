@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OzonEdu.MerchandiseService.Domain.AggregationModels.MerchRequestAggregate;
 using OzonEdu.MerchandiseService.HttpModels;
 using OzonEdu.MerchandiseService.Mappings;
-using OzonEdu.MerchandiseService.Services.Interfaces;
 
 namespace OzonEdu.MerchandiseService.Controllers.V1
 {
@@ -12,18 +12,18 @@ namespace OzonEdu.MerchandiseService.Controllers.V1
     [Produces("application/json")]
     public class MerchandiseController : ControllerBase
     {
-        private readonly IMerchRequestService _merchRequestService;
+        private readonly IMerchRequestRepository _merchRequestRepository;
 
-        public MerchandiseController(IMerchRequestService merchRequestService)
+        public MerchandiseController(IMerchRequestRepository merchRequestRepository)
         {
-            _merchRequestService = merchRequestService;
+            _merchRequestRepository = merchRequestRepository;
         }
         
         [HttpGet("{id:long}")] 
         public async Task<ActionResult<MerchRequestDTO>> GetInformationAboutMerchandiseRequest(long id, 
             CancellationToken token)
         {
-            var merchRequest = await _merchRequestService.GetById(id, token);
+            var merchRequest = await _merchRequestRepository.GetById(id, token);
             if (merchRequest is null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace OzonEdu.MerchandiseService.Controllers.V1
                 return BadRequest();
             }
             
-            var createdMerchRequest = await _merchRequestService.Add(creationModel, token);
+            var createdMerchRequest = await _merchRequestRepository.Add(creationModel, token);
             var merchRequestDTO = Mapper.MerchRequestToDTO(createdMerchRequest);
             return Ok(merchRequestDTO);
         }
